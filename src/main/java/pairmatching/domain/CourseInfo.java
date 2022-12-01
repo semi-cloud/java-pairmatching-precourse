@@ -16,4 +16,8 @@ public class CourseInfo {
         Level level = Level.of(courseInfo.get(1), courseInfo.get(2));
         return new CourseInfo(course, level);
     }
+
+    public boolean isBackEndCourse() {
+        return course == Course.BACKEND;
+    }
 }
