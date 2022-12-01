@@ -1,5 +1,7 @@
 package pairmatching.domain;
 
+import java.util.Objects;
+
 public class Crew {
     private final Course course;
 
@@ -10,8 +12,16 @@ public class Crew {
         this.name = name;
     }
 
-    // Crew1 : 백엔드, 세미, 0번 페어?
-    // Crew2 : 백엔드, 세미, 1번 페어?
-
-
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Crew)) {
+            return false;
+        }
+        Crew crew = (Crew) obj;
+        return Objects.equals(this.course, crew.course)
+                && Objects.equals(this.name, crew.name);
+    }
 }

@@ -1,8 +1,6 @@
 package pairmatching.controller;
 
-import pairmatching.domain.Command;
-import pairmatching.domain.CourseInfo;
-import pairmatching.domain.Crews;
+import pairmatching.domain.*;
 import pairmatching.utils.FileUtils;
 import pairmatching.view.InputView;
 
@@ -17,7 +15,14 @@ public class PairController {
             Command command = inputCommand();
             CourseInfo courseInfo = inputCourse();
             Crews crews = getCrewsByCourse(courseInfo);
-            crews.randomMatchCrew(courseInfo.getCourse());
+            MatchResult matchResult = new MatchResult();
+
+            List<PairCrew> pairCrews = crews.randomMatchCrew(courseInfo.getCourse());
+            for (PairCrew pairCrew : pairCrews) {
+                if (matchResult.canMatchPair(courseInfo, pairCrew)) {
+                    matchResult.updateResult(courseInfo, pairCrews);
+                }
+            }
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }

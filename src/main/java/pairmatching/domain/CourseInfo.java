@@ -1,6 +1,7 @@
 package pairmatching.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CourseInfo {
     private final Course course;
@@ -23,5 +24,18 @@ public class CourseInfo {
 
     public Course getCourse() {
         return course;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof CourseInfo)) {
+            return false;
+        }
+        CourseInfo course = (CourseInfo) obj;
+        return Objects.equals(this.course, course.course)
+                && Objects.equals(this.level, course.level);
     }
 }
