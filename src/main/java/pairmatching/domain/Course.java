@@ -1,5 +1,7 @@
 package pairmatching.domain;
 
+import pairmatching.exception.ExceptionMessage;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +14,13 @@ public enum Course {
 
     Course(final String name) {
         this.name = name;
+    }
+
+    public static Course of(String name) {
+        return Arrays.stream(Course.values())
+                .filter(x -> x.name.equals(name))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException(ExceptionMessage.INVALID_COURSE.get()));
     }
 
     public static List<String> getCourse() {

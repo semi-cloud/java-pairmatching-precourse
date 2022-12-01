@@ -1,5 +1,6 @@
 package pairmatching.domain;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,14 @@ public enum Level {
     Level(final String name, final List<String> mission) {
         this.name = name;
         this.mission = mission;
+    }
+
+    public static Level of(String name, String mission) {
+        return Arrays.stream(Level.values())
+                .filter(x -> x.name.equals(name))
+                .filter(x -> x.mission.contains(mission))
+                .findAny()
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public static Map<String, List<String>> getMissionByLevel() {

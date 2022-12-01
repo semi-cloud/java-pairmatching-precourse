@@ -1,10 +1,11 @@
 package pairmatching.domain;
 
+import pairmatching.exception.ExceptionMessage;
+
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public enum Function {
-
     PAIR_MATCH("1", "페어 매칭"),
     PAIR_SEARCH("2", "페어 조회"),
     PARI_INIT("3", "페어 초기화"),
@@ -22,7 +23,7 @@ public enum Function {
         return Arrays.stream(Function.values())
                 .filter(x -> x.function.equals(function))
                 .findAny()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new IllegalArgumentException(ExceptionMessage.INVALID_LEVEL_OR_MISSION.get()));
     }
 
     public String getFunction() {
