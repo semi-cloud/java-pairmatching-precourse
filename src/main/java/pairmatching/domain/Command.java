@@ -4,7 +4,7 @@ import pairmatching.exception.ExceptionMessage;
 
 public class Command {
 
-    private final static String REG_XP_COMMAND = "[123Q]";
+    private static final String REG_XP_COMMAND = "[123Q]";
 
     private final Function command;
 
