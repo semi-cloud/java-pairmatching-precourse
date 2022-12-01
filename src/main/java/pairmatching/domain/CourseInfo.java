@@ -20,4 +20,8 @@ public class CourseInfo {
     public boolean isBackEndCourse() {
         return course == Course.BACKEND;
     }
+
+    public Course getCourse() {
+        return course;
+    }
 }
