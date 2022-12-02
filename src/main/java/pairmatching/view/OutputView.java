@@ -15,7 +15,7 @@ public class OutputView {
 
     public void printCourseAndMissionInfo() {
         System.out.println(LINE);
-        String course = String.format(COURSE, String.join(SEPARATE, Course.getCourse()));
+        String course = String.format(COURSE, String.join(SEPARATE, Course.getCourseName()));
         System.out.println(course);
 
         System.out.println(MISSION);
