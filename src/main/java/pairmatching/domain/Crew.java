@@ -24,4 +24,8 @@ public class Crew {
         return Objects.equals(this.course, crew.course)
                 && Objects.equals(this.name, crew.name);
     }
+
+    public String getName() {
+        return name;
+    }
 }

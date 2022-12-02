@@ -20,10 +20,6 @@ public class MatchInfo {
         return new MatchInfo(course, level, courseInfo.get(2));
     }
 
-    public boolean isBackEndCourse() {
-        return course == Course.BACKEND;
-    }
-
     public Course getCourse() {
         return course;
     }

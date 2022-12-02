@@ -31,7 +31,7 @@ public class PairMatchingService {
         List<String> shuffledName = Randoms.shuffle(crews);
         List<Pair> pairs = new ArrayList<>();
 
-        for (int i = 0; i < shuffledName.size(); i += 2) { // 0 - 14까지일꺼아냐
+        for (int i = 0; i < shuffledName.size(); i += 2) {
             List<String> pair = shuffledName.subList(i, i + 2);
             pairs.add(convertToPair(matchInfo, pair));
 

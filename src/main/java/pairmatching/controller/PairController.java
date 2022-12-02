@@ -22,10 +22,12 @@ public class PairController {
     public void run() {
         try {
             Command command = inputCommand();
-            outputView.printCourseAndMissionInfo();
+            outputView.printCourseAndMatchingInfo();
             MatchInfo matchInfo = inputCourse();
             List<String> crews = getCrewsByCourse(matchInfo);
             pairMatchingService.matchPair(crews, matchInfo);
+            List<List<String>> matchResult = pairMatchingService.getMatchResult(matchInfo);
+            outputView.printMatchingResult(matchResult);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }

@@ -2,6 +2,7 @@ package pairmatching.domain;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Pair {
 
@@ -20,5 +21,15 @@ public class Pair {
 
     public List<Crew> getCrews() {
         return Collections.unmodifiableList(pairCrews);
+    }
+
+    public List<String> getCrewNames() {
+        return pairCrews.stream()
+                .map(Crew::getName)
+                .collect(Collectors.toList());
+    }
+
+    public MatchInfo getMatchInfo() {
+        return matchInfo;
     }
 }
