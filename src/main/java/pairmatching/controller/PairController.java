@@ -1,7 +1,8 @@
 package pairmatching.controller;
 
-import pairmatching.domain.*;
-import pairmatching.exception.ExceptionMessage;
+import pairmatching.domain.Command;
+import pairmatching.domain.MatchInfo;
+import pairmatching.service.PairMatchingService;
 import pairmatching.utils.FileUtils;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
@@ -12,34 +13,22 @@ import java.util.List;
 public class PairController {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
+    private final PairMatchingService pairMatchingService;
+
+    public PairController(PairMatchingService pairMatchingService) {
+        this.pairMatchingService = pairMatchingService;
+    }
 
     public void run() {
         try {
             Command command = inputCommand();
             outputView.printCourseAndMissionInfo();
             MatchInfo matchInfo = inputCourse();
-            CrewMatcher crewMatcher = getCrewsByCourse(matchInfo);
-            matchCrew(crewMatcher, matchInfo);
+            List<String> crews = getCrewsByCourse(matchInfo);
+            pairMatchingService.matchPair(crews, matchInfo);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-    }
-
-    private void matchCrew(CrewMatcher crewMatcher, MatchInfo matchInfo) {
-        MatchResult matchResult = new MatchResult();
-        for (int i = 0; i < 3 ; i ++) {
-            List<Pair> pairs = crewMatcher.getRandomMatchCrew(matchInfo);
-            if (canMatchPair(pairs, matchResult, matchInfo)) {
-                matchResult.addResult(pairs);
-                return;
-            }
-        }
-        throw new IllegalArgumentException(ExceptionMessage.PAIR_MATCHING_FAIL.get());
-    }
-
-    private boolean canMatchPair(List<Pair> randomPairs, MatchResult matchResult, MatchInfo matchInfo) {
-        return randomPairs.stream()
-                .anyMatch(x -> matchResult.isAlreadyMatchedSameLevel(matchInfo.getLevel(), x.getCrews()));
     }
 
     private Command inputCommand() {
@@ -62,10 +51,8 @@ public class PairController {
         }
     }
 
-    private CrewMatcher getCrewsByCourse(MatchInfo matchInfo) throws IOException {
-        if (matchInfo.isBackEndCourse()) {
-            return new CrewMatcher(FileUtils.readFile("backend-crew.md"));
-        }
-        return new CrewMatcher(FileUtils.readFile("frontend-crew.md"));
+    private List<String> getCrewsByCourse(MatchInfo matchInfo) throws IOException {
+        String fileName = matchInfo.getCourse().getFileName();
+        return FileUtils.readFile(fileName);
     }
 }
