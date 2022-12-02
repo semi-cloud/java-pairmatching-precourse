@@ -10,7 +10,7 @@ import java.util.List;
 public class InputView {
 
     private static final String INPUT_COMMAND = "기능을 선택하세요.";
-    private static final String COURSE = "과정, 레벨, 미션을 선택하세요.%nex) 백엔드, 레벨1, 자동차경주";
+    private static final String COURSE = "과정, 레벨, 미션을 선택하세요.\nex) 백엔드, 레벨1, 자동차경주";
     private static final String FUNCTION_FORM = "%s. %s%n";
     private static final String SPLIT_FORM = ",";
 

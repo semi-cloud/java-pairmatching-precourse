@@ -3,7 +3,6 @@ package pairmatching.domain;
 import pairmatching.exception.ExceptionMessage;
 
 import java.util.Arrays;
-import java.util.NoSuchElementException;
 
 public enum Function {
     PAIR_MATCH("1", "페어 매칭"),

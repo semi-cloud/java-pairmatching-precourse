@@ -1,10 +1,10 @@
 package pairmatching;
 
-import pairmatching.view.OutputView;
+import pairmatching.controller.PairController;
 
 public class Application {
     public static void main(String[] args) {
-        OutputView outputView = new OutputView();
-        outputView.printCourseAndMissionInfo();
+        PairController pairController = new PairController();
+        pairController.run();
     }
 }
