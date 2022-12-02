@@ -1,5 +1,7 @@
 package pairmatching.domain;
 
+import pairmatching.exception.ExceptionMessage;
+
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ public enum Level {
                 .filter(x -> x.name.equals(name))
                 .filter(x -> x.mission.contains(mission))
                 .findAny()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException(ExceptionMessage.INVALID_LEVEL_OR_MISSION.get()));
     }
 
     public static Map<String, List<String>> getMissionByLevel() {

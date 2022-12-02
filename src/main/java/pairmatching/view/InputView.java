@@ -3,9 +3,9 @@ package pairmatching.view;
 import camp.nextstep.edu.missionutils.Console;
 import pairmatching.domain.Function;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InputView {
 
@@ -28,6 +28,9 @@ public class InputView {
     public List<String> getCourseAndMission() {
         System.out.println(COURSE);
         String input = Console.readLine();
-        return Arrays.asList(input.split(SPLIT_FORM));
+
+        return Arrays.stream(input.split(SPLIT_FORM))
+                .map(String::trim)
+                .collect(Collectors.toList());
     }
 }
