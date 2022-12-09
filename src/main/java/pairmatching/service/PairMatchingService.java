@@ -59,7 +59,11 @@ public class PairMatchingService {
                 .anyMatch(x -> matchResult.isAlreadyMatchedSameLevel(matchInfo.getLevel(), x.getCrews()));
     }
 
-    public List<List<String>> getMatchResult(MatchInfo matchInfo) {
+    public List<List<String>> getMatchResult(MatchInfo matchInfo, Mode mode) {
+        if (!isMatchResultExist(matchInfo) && mode == Mode.PAIR_SEARCH) {
+            throw new IllegalArgumentException(ExceptionMessage.NO_MATCHING_RESULT.get());
+        }
+
         List<Pair> pairResult = matchResult.getResultByMatchInfo(matchInfo);
         return pairResult.stream()
                 .map(Pair::getCrewNames)

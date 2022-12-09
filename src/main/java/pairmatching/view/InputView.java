@@ -21,7 +21,7 @@ public class InputView {
     public String getCommand() {
         System.out.println(INPUT_COMMAND);
         printFunctions();
-        return Console.readLine();
+        return Console.readLine().trim();
     }
 
     private void printFunctions() {
@@ -40,7 +40,7 @@ public class InputView {
 
     public String getRematch() {
         System.out.println(RE_MATCH);
-        String input = Console.readLine();
+        String input = Console.readLine().trim();
         validateRematch(input);
         return input;
     }

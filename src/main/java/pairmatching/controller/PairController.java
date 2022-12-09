@@ -39,6 +39,8 @@ public class PairController {
     public void runByCommand(Command command) throws IOException {
         if (command.getMode() == Mode.PAIR_MATCH) {
             pairMatch();
+        } else if (command.getMode() == Mode.PAIR_SEARCH) {
+            pairSearch();
         }
     }
 
@@ -48,7 +50,7 @@ public class PairController {
         List<String> crews = getCrewsByCourse(matchInfo);
 
         pairMatchingService.matchPair(crews, matchInfo);
-        List<List<String>> matchResult = pairMatchingService.getMatchResult(matchInfo);
+        List<List<String>> matchResult = pairMatchingService.getMatchResult(matchInfo, Mode.PAIR_MATCH);
         outputView.printMatchingResult(matchResult);
     }
 
@@ -66,6 +68,18 @@ public class PairController {
             return !inputRematch().equals(STOP_MATCH);
         }
         return true;
+    }
+
+    public void pairSearch() {
+        try {
+            outputView.printCourseAndMatchingInfo();
+            MatchInfo matchInfo = inputCourse();
+            List<List<String>> matchResult = pairMatchingService.getMatchResult(matchInfo, Mode.PAIR_SEARCH);
+            outputView.printMatchingResult(matchResult);
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+            pairSearch();
+        }
     }
 
     private Command inputCommand() {
