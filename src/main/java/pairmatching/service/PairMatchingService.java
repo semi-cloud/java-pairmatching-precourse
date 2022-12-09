@@ -16,6 +16,10 @@ public class PairMatchingService {
         this.matchResult =  matchResult;
     }
 
+    public boolean isMatchResultExist(MatchInfo matchInfo) {
+        return matchResult.hasExistingMatchResult(matchInfo);
+    }
+
     public void matchPair(List<String> crews, MatchInfo matchInfo) {
         for (int i = 0; i < 3 ; i ++) {
             List<Pair> pairs = getRandomMatchCrew(crews, matchInfo);

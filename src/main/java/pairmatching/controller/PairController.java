@@ -2,6 +2,7 @@ package pairmatching.controller;
 
 import pairmatching.domain.Command;
 import pairmatching.domain.MatchInfo;
+import pairmatching.domain.Mode;
 import pairmatching.service.PairMatchingService;
 import pairmatching.utils.FileUtils;
 import pairmatching.view.InputView;
@@ -14,6 +15,7 @@ public class PairController {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
     private final PairMatchingService pairMatchingService;
+    private static final String STOP_MATCH = "아니오";  // 이런 네 아니오..는 어디서 확인하지..
 
     public PairController(PairMatchingService pairMatchingService) {
         this.pairMatchingService = pairMatchingService;
@@ -21,16 +23,49 @@ public class PairController {
 
     public void run() {
         try {
-            Command command = inputCommand();
-            outputView.printCourseAndMatchingInfo();
-            MatchInfo matchInfo = inputCourse();
-            List<String> crews = getCrewsByCourse(matchInfo);
-            pairMatchingService.matchPair(crews, matchInfo);
-            List<List<String>> matchResult = pairMatchingService.getMatchResult(matchInfo);
-            outputView.printMatchingResult(matchResult);
+            while(true) {
+                Command command = inputCommand();
+                runByCommand(command);
+
+                if (command.getMode() == Mode.QUIT) {
+                    break;
+                }
+            }
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public void runByCommand(Command command) throws IOException {
+        if (command.getMode() == Mode.PAIR_MATCH) {
+            pairMatch();
+        }
+    }
+
+    private void pairMatch() throws IOException {
+        outputView.printCourseAndMatchingInfo();
+        MatchInfo matchInfo = getMatchInfo();
+        List<String> crews = getCrewsByCourse(matchInfo);
+
+        pairMatchingService.matchPair(crews, matchInfo);
+        List<List<String>> matchResult = pairMatchingService.getMatchResult(matchInfo);
+        outputView.printMatchingResult(matchResult);
+    }
+
+    private MatchInfo getMatchInfo() {
+        while (true) {
+            MatchInfo matchInfo = inputCourse();
+            if (continueMatch(matchInfo)) {
+                return matchInfo;
+            }
+        }
+    }
+
+    private boolean continueMatch(MatchInfo matchInfo) {
+        if (pairMatchingService.isMatchResultExist(matchInfo)) {
+            return !inputRematch().equals(STOP_MATCH);
+        }
+        return true;
     }
 
     private Command inputCommand() {
@@ -50,6 +85,15 @@ public class PairController {
         } catch (IllegalArgumentException ex) {
             System.out.println(ex.getMessage());
             return inputCourse();
+        }
+    }
+
+    private String inputRematch() {
+        try {
+            return inputView.getRematch();
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+            return inputRematch();
         }
     }
 

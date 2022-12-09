@@ -15,6 +15,11 @@ public class MatchResult {
                 .anyMatch(x -> x.isSameLevel(level, pair));
     }
 
+    public boolean hasExistingMatchResult(MatchInfo matchInfo) {
+        return pairResult.stream()
+                .anyMatch(x -> x.getMatchInfo().equals(matchInfo));
+    }
+
     public List<Pair> getResult(MatchInfo matchInfo) {
         return pairResult.stream()
                 .filter(x -> x.getMatchInfo().equals(matchInfo))

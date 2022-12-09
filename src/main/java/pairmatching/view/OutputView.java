@@ -39,5 +39,6 @@ public class OutputView {
         System.out.println(MATCH_OUTPUT);
         matchResult.forEach(x ->
                 System.out.println(String.join(CREW_SEPARATE, x)));
+        System.out.println();
     }
 }
