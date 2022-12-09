@@ -15,7 +15,7 @@ public class PairController {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
     private final PairMatchingService pairMatchingService;
-    private static final String STOP_MATCH = "아니오";  // 이런 네 아니오..는 어디서 확인하지..
+    private static final String STOP_MATCH = "아니오";
 
     public PairController(PairMatchingService pairMatchingService) {
         this.pairMatchingService = pairMatchingService;

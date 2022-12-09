@@ -24,7 +24,7 @@ public class PairMatchingService {
         for (int i = 0; i < 3 ; i ++) {
             List<Pair> pairs = getRandomMatchCrew(crews, matchInfo);
             if (!canMatchPair(pairs, matchInfo)) {
-                matchResult.addResult(pairs);
+                matchResult.addResult(pairs, matchInfo);
                 return;
             }
         }
@@ -60,7 +60,7 @@ public class PairMatchingService {
     }
 
     public List<List<String>> getMatchResult(MatchInfo matchInfo) {
-        List<Pair> pairResult = matchResult.getResult(matchInfo);
+        List<Pair> pairResult = matchResult.getResultByMatchInfo(matchInfo);
         return pairResult.stream()
                 .map(Pair::getCrewNames)
                 .collect(Collectors.toList());
