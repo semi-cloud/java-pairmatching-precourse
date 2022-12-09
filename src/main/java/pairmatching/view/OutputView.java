@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class OutputView {
     private static final String MATCH_OUTPUT = "\n페어 매칭 결과입니다.";
+    private static final String PAIR_INIT = "\n초기화 되었습니다.\n";
     private static final String LINE = "#############################################";
     private static final String SEPARATE = " | ";
     private static final String COURSE = "과정: %s";
@@ -40,5 +41,9 @@ public class OutputView {
         matchResult.forEach(x ->
                 System.out.println(String.join(CREW_SEPARATE, x)));
         System.out.println();
+    }
+
+    public void printInitSuccess() {
+        System.out.println(PAIR_INIT);
     }
 }

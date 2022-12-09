@@ -41,6 +41,8 @@ public class PairController {
             pairMatch();
         } else if (command.getMode() == Mode.PAIR_SEARCH) {
             pairSearch();
+        } else {
+            pairInit();
         }
     }
 
@@ -80,6 +82,11 @@ public class PairController {
             System.out.println(ex.getMessage());
             pairSearch();
         }
+    }
+
+    public void pairInit() {
+        pairMatchingService.initPairMatchResult();
+        outputView.printInitSuccess();
     }
 
     private Command inputCommand() {

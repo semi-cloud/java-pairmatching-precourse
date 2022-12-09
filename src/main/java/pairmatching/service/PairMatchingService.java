@@ -69,4 +69,8 @@ public class PairMatchingService {
                 .map(Pair::getCrewNames)
                 .collect(Collectors.toList());
     }
+
+    public void initPairMatchResult() {
+        matchResult.init();
+    }
 }

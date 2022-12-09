@@ -4,11 +4,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class MatchResult {
-    private final List<Pair> pairResult = new ArrayList<>();
+    private List<Pair> pairResult = new ArrayList<>();
 
     public void addResult(List<Pair> pairs, MatchInfo matchInfo) {
         if (!pairResult.isEmpty()) {
-            getResultByMatchInfo(matchInfo).forEach(pairResult::remove);
+            pairResult = pairResult.stream()
+                    .filter(x -> !x.getMatchInfo().equals(matchInfo))
+                    .collect(Collectors.toList());
         }
         pairResult.addAll(pairs);
     }
@@ -27,5 +29,9 @@ public class MatchResult {
         return pairResult.stream()
                 .filter(x -> x.getMatchInfo().equals(matchInfo))
                 .collect(Collectors.toList());
+    }
+
+    public void init() {
+        pairResult = new ArrayList<>();
     }
 }
