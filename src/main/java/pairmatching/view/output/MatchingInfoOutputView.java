@@ -1,7 +1,8 @@
-package pairmatching.view;
+package pairmatching.view.output;
 
-import pairmatching.domain.Course;
-import pairmatching.domain.Level;
+import pairmatching.domain.match.Course;
+import pairmatching.domain.match.Level;
+import pairmatching.view.Viewable;
 
 import java.util.List;
 import java.util.Map;

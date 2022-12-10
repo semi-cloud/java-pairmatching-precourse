@@ -1,7 +1,11 @@
 package pairmatching.service;
 
 import camp.nextstep.edu.missionutils.Randoms;
-import pairmatching.domain.*;
+import pairmatching.domain.crews.Crew;
+import pairmatching.domain.crews.Pair;
+import pairmatching.domain.game.Mode;
+import pairmatching.domain.match.MatchInfo;
+import pairmatching.domain.match.MatchResult;
 import pairmatching.exception.ExceptionMessage;
 
 import java.util.ArrayList;

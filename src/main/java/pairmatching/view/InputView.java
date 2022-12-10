@@ -1,7 +1,7 @@
 package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import pairmatching.domain.Mode;
+import pairmatching.domain.game.Mode;
 import pairmatching.exception.ExceptionMessage;
 
 import java.util.Arrays;

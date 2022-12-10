@@ -1,4 +1,6 @@
-package pairmatching.view;
+package pairmatching.view.output;
+
+import pairmatching.view.Viewable;
 
 import java.util.List;
 import java.util.Map;

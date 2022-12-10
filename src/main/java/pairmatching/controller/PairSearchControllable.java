@@ -1,12 +1,12 @@
 package pairmatching.controller;
 
 import pairmatching.controller.controllable.ControllableV3;
-import pairmatching.domain.MatchInfo;
-import pairmatching.domain.Mode;
+import pairmatching.domain.match.MatchInfo;
+import pairmatching.domain.game.Mode;
 import pairmatching.service.PairMatchingService;
 import pairmatching.utils.InputUtils;
 import pairmatching.view.InputView;
-import pairmatching.view.MatchingInfoOutputView;
+import pairmatching.view.output.MatchingInfoOutputView;
 
 import java.util.HashMap;
 import java.util.List;

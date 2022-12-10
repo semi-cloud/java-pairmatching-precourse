@@ -1,7 +1,7 @@
 package pairmatching.controller;
 
-import pairmatching.domain.Command;
-import pairmatching.domain.Mode;
+import pairmatching.domain.game.Command;
+import pairmatching.domain.game.Mode;
 import pairmatching.handler.HandlerAdapter;
 import pairmatching.handler.adapter.ControllerV2HandlerAdapter;
 import pairmatching.handler.adapter.ControllerV3HandlerAdapter;

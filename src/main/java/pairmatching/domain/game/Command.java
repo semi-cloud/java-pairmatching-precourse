@@ -1,5 +1,6 @@
-package pairmatching.domain;
+package pairmatching.domain.game;
 
+import pairmatching.domain.game.Mode;
 import pairmatching.exception.ExceptionMessage;
 
 public class Command {

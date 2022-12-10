@@ -1,6 +1,6 @@
 package pairmatching.controller;
 
-import pairmatching.view.OutputViewResolver;
+import pairmatching.view.output.OutputViewResolver;
 import pairmatching.view.Viewable;
 
 import java.util.Map;

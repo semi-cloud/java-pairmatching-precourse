@@ -1,4 +1,9 @@
-package pairmatching.domain;
+package pairmatching.domain.match;
+
+import pairmatching.domain.crews.Crew;
+import pairmatching.domain.crews.Pair;
+import pairmatching.domain.match.Level;
+import pairmatching.domain.match.MatchInfo;
 
 import java.util.*;
 import java.util.stream.Collectors;

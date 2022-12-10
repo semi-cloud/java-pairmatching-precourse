@@ -1,4 +1,4 @@
-package pairmatching.domain;
+package pairmatching.domain.match;
 
 import pairmatching.exception.ExceptionMessage;
 
