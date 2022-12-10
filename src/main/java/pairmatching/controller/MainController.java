@@ -1,5 +1,6 @@
 package pairmatching.controller;
 
+import pairmatching.controller.controllable.ControllableV3;
 import pairmatching.domain.Command;
 import pairmatching.domain.Mode;
 import pairmatching.service.PairMatchingService;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class MainController {
     private final InputView inputView = new InputView();
-    private final Map<String, ControllableV2> controllerMap = new HashMap<>();
+    private final Map<String, ControllableV3> controllerMap = new HashMap<>();  // 유연하지 못하다.
 
     public MainController() {
         PairMatchingService pairMatchingService = new PairMatchingService();
@@ -31,9 +32,12 @@ public class MainController {
     }
 
     public void runByCommand(Command command) {
+        Map<String, Object> modelMap = new HashMap<>();
         Mode mode = command.getMode();
-        ControllableV2 controller = controllerMap.get(mode.getFunc());
-        ModelAndView modelAndView = controller.process();
+        ControllableV3 controller = controllerMap.get(mode.getFunc());
+
+        String viewName = controller.process(modelMap);
+        ModelAndView modelAndView = new ModelAndView(viewName, modelMap);
         modelAndView.render();
     }
 }

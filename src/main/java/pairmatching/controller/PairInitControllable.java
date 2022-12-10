@@ -1,8 +1,11 @@
 package pairmatching.controller;
 
+import pairmatching.controller.controllable.ControllableV3;
 import pairmatching.service.PairMatchingService;
 
-public class PairInitControllable implements ControllableV2 {
+import java.util.Map;
+
+public class PairInitControllable implements ControllableV3 {
     private final PairMatchingService pairMatchingService;
 
     public PairInitControllable(PairMatchingService pairMatchingService) {
@@ -10,8 +13,8 @@ public class PairInitControllable implements ControllableV2 {
     }
 
     @Override
-    public ModelAndView process() {
+    public String process(Map<String, Object> modelMap) {
         pairMatchingService.initPairMatchResult();
-        return new ModelAndView("init");
+        return "init";
     }
 }

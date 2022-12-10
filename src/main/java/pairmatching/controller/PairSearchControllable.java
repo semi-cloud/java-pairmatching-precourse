@@ -1,5 +1,6 @@
 package pairmatching.controller;
 
+import pairmatching.controller.controllable.ControllableV3;
 import pairmatching.domain.MatchInfo;
 import pairmatching.domain.Mode;
 import pairmatching.service.PairMatchingService;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PairSearchControllable implements ControllableV2 {
+public class PairSearchControllable implements ControllableV3 {
 
     private final InputView inputView = new InputView();
     private final MatchingInfoOutputView matchingInfoOutputView = new MatchingInfoOutputView();
@@ -22,21 +23,16 @@ public class PairSearchControllable implements ControllableV2 {
     }
 
     @Override
-    public ModelAndView process() {
+    public String process(Map<String, Object> modelMap) {
         try {
             matchingInfoOutputView.render(new HashMap<>());
             MatchInfo matchInfo = InputUtils.read(MatchInfo::create, inputView::getCourseAndMission);
             List<List<String>> matchResult = pairMatchingService.getMatchResult(matchInfo, Mode.PAIR_SEARCH);
-            return getModelAndView(matchResult);
+            modelMap.put("matchResult", matchResult);
+            return "result";
         } catch (IllegalArgumentException ex) {
             System.out.println(ex.getMessage());
-            return process();
+            return process(modelMap);
         }
-    }
-
-    private ModelAndView getModelAndView(List<List<String>> matchResult) {
-        Map<String, Object> model = new HashMap<>();
-        model.put("result", matchResult);
-        return new ModelAndView("result", model);
     }
 }

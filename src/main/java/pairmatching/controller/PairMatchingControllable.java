@@ -1,5 +1,6 @@
 package pairmatching.controller;
 
+import pairmatching.controller.controllable.ControllableV3;
 import pairmatching.domain.MatchInfo;
 import pairmatching.domain.Mode;
 import pairmatching.service.PairMatchingService;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PairMatchingControllable implements ControllableV2 {
+public class PairMatchingControllable implements ControllableV3 {
     private final InputView inputView = new InputView();
     private final MatchingInfoOutputView matchingInfoOutputView = new MatchingInfoOutputView();
     private final PairMatchingService pairMatchingService;
@@ -23,13 +24,14 @@ public class PairMatchingControllable implements ControllableV2 {
     }
 
     @Override
-    public ModelAndView process() {
+    public String process(Map<String, Object> modelMap) {
         matchingInfoOutputView.render(new HashMap<>());
         MatchInfo matchInfo = getMatchInfo();
         List<String> crews = getCrewsByCourse(matchInfo);
         pairMatchingService.matchPair(crews, matchInfo);
         List<List<String>> matchResult = pairMatchingService.getMatchResult(matchInfo, Mode.PAIR_MATCH);
-        return getModelAndView(matchResult);
+        modelMap.put("matchResult", matchResult);
+        return "result";
     }
 
     private MatchInfo getMatchInfo() {
@@ -51,11 +53,5 @@ public class PairMatchingControllable implements ControllableV2 {
     private List<String> getCrewsByCourse(MatchInfo matchInfo) {
         String fileName = matchInfo.getCourse().getFileName();
         return FileUtils.readFile(fileName);
-    }
-
-    private ModelAndView getModelAndView(List<List<String>> matchResult) {
-        Map<String, Object> model = new HashMap<>();
-        model.put("result", matchResult);
-        return new ModelAndView("result", model);
     }
 }

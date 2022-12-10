@@ -9,8 +9,8 @@ public class MatchingResultOutputView implements Viewable {
 
     @Override
     public void render(Map<String, Object> model) {
-        @SuppressWarnings("unchecked") List<List<String>> matchResult =
-                (List<List<String>>) model.get("result");
+        @SuppressWarnings("unchecked")
+        List<List<String>> matchResult = (List<List<String>>) model.get("matchResult");
 
         System.out.println(MATCH_OUTPUT);
         matchResult.forEach(x ->
