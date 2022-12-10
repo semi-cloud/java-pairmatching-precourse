@@ -5,6 +5,7 @@ import pairmatching.domain.MatchInfo;
 import pairmatching.domain.Mode;
 import pairmatching.service.PairMatchingService;
 import pairmatching.utils.FileUtils;
+import pairmatching.utils.InputUtils;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
@@ -24,7 +25,7 @@ public class PairController {
     public void run() {
         try {
             while(true) {
-                Command command = inputCommand();
+                Command command = InputUtils.read(Command::new, inputView::getCommand);
                 runByCommand(command);
 
                 if (command.getMode() == Mode.QUIT) {
@@ -58,7 +59,7 @@ public class PairController {
 
     private MatchInfo getMatchInfo() {
         while (true) {
-            MatchInfo matchInfo = inputCourse();
+            MatchInfo matchInfo = InputUtils.read(MatchInfo::create, inputView::getCourseAndMission);
             if (continueMatch(matchInfo)) {
                 return matchInfo;
             }
@@ -67,7 +68,7 @@ public class PairController {
 
     private boolean continueMatch(MatchInfo matchInfo) {
         if (pairMatchingService.isMatchResultExist(matchInfo)) {
-            return !inputRematch().equals(STOP_MATCH);
+            return !InputUtils.read(inputView::getRematch).equals(STOP_MATCH);
         }
         return true;
     }
@@ -75,7 +76,7 @@ public class PairController {
     public void pairSearch() {
         try {
             outputView.printCourseAndMatchingInfo();
-            MatchInfo matchInfo = inputCourse();
+            MatchInfo matchInfo = InputUtils.read(MatchInfo::create, inputView::getCourseAndMission);
             List<List<String>> matchResult = pairMatchingService.getMatchResult(matchInfo, Mode.PAIR_SEARCH);
             outputView.printMatchingResult(matchResult);
         } catch (IllegalArgumentException ex) {
@@ -87,35 +88,6 @@ public class PairController {
     public void pairInit() {
         pairMatchingService.initPairMatchResult();
         outputView.printInitSuccess();
-    }
-
-    private Command inputCommand() {
-        try {
-            String input = inputView.getCommand();
-            return new Command(input);
-        } catch (IllegalArgumentException ex) {
-            System.out.println(ex.getMessage());
-            return inputCommand();
-        }
-    }
-
-    private MatchInfo inputCourse() {
-        try {
-            List<String> input = inputView.getCourseAndMission();
-            return MatchInfo.create(input);
-        } catch (IllegalArgumentException ex) {
-            System.out.println(ex.getMessage());
-            return inputCourse();
-        }
-    }
-
-    private String inputRematch() {
-        try {
-            return inputView.getRematch();
-        } catch (IllegalArgumentException ex) {
-            System.out.println(ex.getMessage());
-            return inputRematch();
-        }
     }
 
     private List<String> getCrewsByCourse(MatchInfo matchInfo) throws IOException {
