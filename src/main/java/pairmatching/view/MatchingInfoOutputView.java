@@ -1,6 +1,5 @@
 package pairmatching.view;
 
-import pairmatching.controller.Viewable;
 import pairmatching.domain.Course;
 import pairmatching.domain.Level;
 

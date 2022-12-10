@@ -1,7 +1,5 @@
 package pairmatching.view;
 
-import pairmatching.controller.Viewable;
-
 import java.util.List;
 import java.util.Map;
 
