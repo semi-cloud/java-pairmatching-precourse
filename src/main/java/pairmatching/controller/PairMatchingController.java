@@ -6,14 +6,18 @@ import pairmatching.service.PairMatchingService;
 import pairmatching.utils.FileUtils;
 import pairmatching.utils.InputUtils;
 import pairmatching.view.InputView;
-import pairmatching.view.OutputView;
+import pairmatching.view.MatchingInfoOutputView;
+import pairmatching.view.MatchingResultOutputView;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PairMatchingController implements ControllerV1 {
     private final InputView inputView = new InputView();
-    private final OutputView outputView = new OutputView();
+    private final MatchingInfoOutputView matchingInfoOutputView = new MatchingInfoOutputView();
+    private final MatchingResultOutputView matchingResultOutputView = new MatchingResultOutputView();
     private final PairMatchingService pairMatchingService;
     private static final String STOP_MATCH = "아니오";
 
@@ -24,13 +28,12 @@ public class PairMatchingController implements ControllerV1 {
     @Override
     public void process() {
         try {
-            outputView.printCourseAndMatchingInfo();
+            matchingInfoOutputView.render(new HashMap<>());
             MatchInfo matchInfo = getMatchInfo();
             List<String> crews = getCrewsByCourse(matchInfo);
-
             pairMatchingService.matchPair(crews, matchInfo);
             List<List<String>> matchResult = pairMatchingService.getMatchResult(matchInfo, Mode.PAIR_MATCH);
-            outputView.printMatchingResult(matchResult);
+            printView(matchResult);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -55,5 +58,11 @@ public class PairMatchingController implements ControllerV1 {
     private List<String> getCrewsByCourse(MatchInfo matchInfo) throws IOException {
         String fileName = matchInfo.getCourse().getFileName();
         return FileUtils.readFile(fileName);
+    }
+
+    private void printView(List<List<String>> matchResult) {
+        Map<String, Object> model = new HashMap<>();
+        model.put("result", matchResult);
+        matchingResultOutputView.render(model);
     }
 }

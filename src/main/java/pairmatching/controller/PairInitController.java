@@ -1,10 +1,12 @@
 package pairmatching.controller;
 
 import pairmatching.service.PairMatchingService;
-import pairmatching.view.OutputView;
+import pairmatching.view.MatchingInitOutputView;
+
+import java.util.HashMap;
 
 public class PairInitController implements ControllerV1 {
-    private final OutputView outputView = new OutputView();
+    private final MatchingInitOutputView outputView = new MatchingInitOutputView();
     private final PairMatchingService pairMatchingService;
 
     public PairInitController(PairMatchingService pairMatchingService) {
@@ -14,6 +16,6 @@ public class PairInitController implements ControllerV1 {
     @Override
     public void process() {
         pairMatchingService.initPairMatchResult();
-        outputView.printInitSuccess();
+        outputView.render(new HashMap<>());
     }
 }

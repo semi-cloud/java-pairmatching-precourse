@@ -11,10 +11,10 @@ import java.util.Map;
 
 public class MainController {
     private final InputView inputView = new InputView();
-    private final PairMatchingService pairMatchingService = new PairMatchingService();
     private final Map<String, ControllerV1> controllerMap = new HashMap<>();
 
     public MainController() {
+        PairMatchingService pairMatchingService = new PairMatchingService();
         controllerMap.put(Mode.PAIR_MATCH.getFunc(), new PairMatchingController(pairMatchingService));
         controllerMap.put(Mode.PAIR_SEARCH.getFunc(), new PairSearchController(pairMatchingService));
         controllerMap.put(Mode.PARI_INIT.getFunc(), new PairInitController(pairMatchingService));
