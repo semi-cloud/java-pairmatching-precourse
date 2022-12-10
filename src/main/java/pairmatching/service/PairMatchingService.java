@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PairMatchingService {
-
+    private static final int MAX_MATCH_SIZE = 3;
+    private static final int EVEN = 2;
+    private static final int ODD = 3;
     private final MatchResult matchResult = new MatchResult();
 
     public boolean isMatchResultExist(MatchInfo matchInfo) {
@@ -21,7 +23,7 @@ public class PairMatchingService {
     }
 
     public void matchPair(List<String> crews, MatchInfo matchInfo) {
-        for (int i = 0; i < 3 ; i ++) {
+        for (int i = 0; i < MAX_MATCH_SIZE ; i ++) {
             List<Pair> pairs = getRandomMatchCrew(crews, matchInfo);
             if (!canMatchPair(pairs, matchInfo)) {
                 matchResult.addResult(pairs, matchInfo);
@@ -35,11 +37,11 @@ public class PairMatchingService {
         List<String> shuffledName = Randoms.shuffle(crews);
         List<Pair> pairs = new ArrayList<>();
 
-        for (int i = 0; i < shuffledName.size(); i += 2) {
-            List<String> pair = shuffledName.subList(i, i + 2);
+        for (int i = 0; i < shuffledName.size(); i += EVEN) {
+            List<String> pair = shuffledName.subList(i, i + EVEN);
             pairs.add(convertToPair(matchInfo, pair));
 
-            if (shuffledName.size() % 2 != 0 && i == shuffledName.size() - 3) {
+            if (shuffledName.size() % EVEN != 0 && i == shuffledName.size() - ODD) {
                 List<String> oddPair = shuffledName.subList(i, shuffledName.size());
                 pairs.add(convertToPair(matchInfo, oddPair));
                 break;
