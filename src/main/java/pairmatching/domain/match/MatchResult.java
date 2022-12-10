@@ -2,10 +2,9 @@ package pairmatching.domain.match;
 
 import pairmatching.domain.crews.Crew;
 import pairmatching.domain.crews.Pair;
-import pairmatching.domain.match.Level;
-import pairmatching.domain.match.MatchInfo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MatchResult {

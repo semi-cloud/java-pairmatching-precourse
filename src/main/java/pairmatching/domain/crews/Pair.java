@@ -1,6 +1,5 @@
 package pairmatching.domain.crews;
 
-import pairmatching.domain.crews.Crew;
 import pairmatching.domain.match.Level;
 import pairmatching.domain.match.MatchInfo;
 
