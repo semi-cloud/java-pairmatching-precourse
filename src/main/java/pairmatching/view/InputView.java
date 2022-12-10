@@ -26,7 +26,7 @@ public class InputView {
 
     private void printFunctions() {
         Arrays.stream(Mode.values())
-                .forEach(x -> System.out.printf(FUNCTION_FORM, x.getFunction(), x.getName()));
+                .forEach(x -> System.out.printf(FUNCTION_FORM, x.getFunc(), x.getName()));
     }
 
     public List<String> getCourseAndMission() {

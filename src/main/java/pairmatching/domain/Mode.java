@@ -10,23 +10,23 @@ public enum Mode {
     PARI_INIT("3", "페어 초기화"),
     QUIT("Q", "종료");
 
-    private final String function;
+    private final String func;
     private final String name;
 
-    Mode(final String function, final String name) {
-        this.function = function;
+    Mode(final String func, final String name) {
+        this.func = func;
         this.name = name;
     }
 
     public static Mode of(String function) {
         return Arrays.stream(Mode.values())
-                .filter(x -> x.function.equals(function))
+                .filter(x -> x.func.equals(function))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(ExceptionMessage.INVALID_LEVEL_OR_MISSION.get()));
     }
 
-    public String getFunction() {
-        return function;
+    public String getFunc() {
+        return func;
     }
 
     public String getName() {

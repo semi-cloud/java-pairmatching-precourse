@@ -10,11 +10,7 @@ import java.util.stream.Collectors;
 
 public class PairMatchingService {
 
-    private final MatchResult matchResult;
-
-    public PairMatchingService(MatchResult matchResult) {
-        this.matchResult =  matchResult;
-    }
+    private final MatchResult matchResult = new MatchResult();
 
     public boolean isMatchResultExist(MatchInfo matchInfo) {
         return matchResult.hasExistingMatchResult(matchInfo);
